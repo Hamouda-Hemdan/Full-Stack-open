@@ -1,0 +1,13 @@
+sequenceDiagram
+participant browser
+participant server
+
+Note right of browser: User fills in the note form and clicks the save button
+
+browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+activate server
+Note left of server: Server receives the new note data, saves it, and responds with the updated note list
+server-->>browser: JSON data [{ "content": "hello", "date": "2024-08-04" }, { "content": "new note content", "date": "2024-08-06" }, ... ]
+deactivate server
+
+Note right of browser: The browser updates the notes list to include the new note
