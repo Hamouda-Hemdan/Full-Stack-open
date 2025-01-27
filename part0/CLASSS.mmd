@@ -1,0 +1,95 @@
+classDiagram
+
+%% Product Catalog Subsystem
+class Product {
+    - id : UUID
+    - name : String
+    - price : double
+    - description : String
+    - categoryId : UUID
+}
+
+class Category {
+    - id : UUID
+    - name : String
+    - parentCategoryId : UUID
+}
+
+class CatalogManager {
+    + createCategory(name : String, parentCategoryId : UUID) : void
+    + moveCategory(categoryId : UUID, newParentId : UUID) : void
+    + addProduct(product : Product) : void
+}
+
+Category "1" -- "*" Category : Subcategories
+Category "1" -- "*" Product : Products
+CatalogManager "1" -- "*" Category : Manages
+
+%% Order Subsystem
+class Order {
+    - id : UUID
+    - userId : UUID
+    - status : String
+    - totalAmount : double
+    - discountId : UUID
+}
+
+class OrderItem {
+    - id : UUID
+    - productId : UUID
+    - orderId : UUID
+    - quantity : int
+}
+
+class Payment {
+    - id : UUID
+    - orderId : UUID
+    - paymentMethod : String
+    - status : String
+}
+
+class Delivery {
+    - id : UUID
+    - orderId : UUID
+    - deliveryMethod : String
+    - status : String
+}
+
+class Discount {
+    - id : UUID
+    - name : String
+    - percentage : double
+    - startDate : Date
+    - endDate : Date
+    - applicableCategoryId : UUID
+}
+
+Order "1" -- "*" OrderItem : Contains
+Order "1" -- "1" Payment : Includes
+Order "1" -- "1" Delivery : Includes
+Order "1" -- "*" Discount : Applied
+Discount "1" -- "*" Category : ApplicableTo
+
+%% User Profile Subsystem
+class User {
+    - id : UUID
+    - name : String
+    - email : String
+    - favoriteProducts : List<Product>
+}
+
+class Notification {
+    - id : UUID
+    - userId : UUID
+    - message : String
+    - isRead : boolean
+}
+
+class UserManager {
+    + addFavoriteProduct(userId : UUID, productId : UUID) : void
+    + notifyUser(userId : UUID, message : String) : void
+}
+
+User "1" -- "*" Notification : Receives
+UserManager "1" -- "*" User : Manages
+User "*" -- "*" Product : Favorites
