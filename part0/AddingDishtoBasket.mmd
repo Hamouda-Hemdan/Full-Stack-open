@@ -1,0 +1,19 @@
+%% Sequence Diagram: Adding a Dish to Basket
+sequenceDiagram
+    participant User
+    participant Client as Frontend (Client)
+    participant API as Backend (API)
+    participant DB as Database
+
+    User->>Client: Selects a dish to add to the cart
+    Client->>API: POST /api/basket/dish/{dishId}
+    API->>DB: Check if dish exists
+    alt Dish exists
+        DB-->>API: Dish found
+        API->>DB: Update user basket
+        DB-->>API: Basket updated
+        API->>Client: Return success response
+    else Dish not found
+        DB-->>API: Dish not found
+        API->>Client: Return error response
+    end
