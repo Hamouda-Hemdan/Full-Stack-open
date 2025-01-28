@@ -1,0 +1,22 @@
+%% Sequence Diagram: Token Generation During Login
+sequenceDiagram
+    participant User
+    participant Client as Frontend (Client)
+    participant API as Backend (API)
+    participant DB as Database
+    participant TokenService
+
+    User->>Client: Submits login credentials
+    Client->>API: POST /api/account/login
+    API->>DB: Verify user credentials
+    alt Valid credentials
+        DB-->>API: User authenticated
+        API->>TokenService: Generate JWT token
+        TokenService-->>API: Return token
+        API->>Client: Send token in response
+        Client->>User: Login successful, store token
+    else Invalid credentials
+        DB-->>API: Authentication failed
+        API->>Client: Return error response
+        Client->>User: Show login error
+    end
