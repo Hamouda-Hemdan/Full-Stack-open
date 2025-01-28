@@ -1,0 +1,13 @@
+%% Activity Diagram: Placing an Order
+graph TD
+    A[User logs in] -->|Is authentication successful?| B{Authentication successful?}
+    B -- Yes --> C[Retrieve user basket]
+    C --> D[Show available dishes]
+    D --> E[User selects items and confirms order]
+    E -->|Is basket valid?| F{Basket valid?}
+    F -- Yes --> G[Create order from basket]
+    G --> H[Save order in database]
+    H --> I[Empty the user basket]
+    I --> J[Return order confirmation]
+    F -- No --> K[Show validation error]
+    B -- No --> L[Show login error]
