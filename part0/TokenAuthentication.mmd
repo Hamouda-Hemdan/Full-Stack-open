@@ -1,0 +1,9 @@
+%% Activity Diagram: Token Authentication
+graph TD
+    A[User sends request to API] --> B[API validates token]
+    B -->|Is token present?| C{Token present?}
+    C -- No --> D[Return 401 Unauthorized]
+    C -- Yes --> E[Check token validity]
+    E -->|Is token valid?| F{Token valid?}
+    F -- Yes --> G[Grant access to resource]
+    F -- No --> H[Return 401 Unauthorized]
