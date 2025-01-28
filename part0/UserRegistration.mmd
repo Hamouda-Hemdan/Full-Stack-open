@@ -1,0 +1,8 @@
+%% Activity Diagram: User Registration
+graph TD
+    A[User accesses registration page] --> B[Fill in registration details]
+    B --> C[Submit registration form]
+    C -->|Are details valid?| D{Details valid?}
+    D -- Yes --> E[Create user in database]
+    E --> F[Return success message]
+    D -- No --> G[Show validation errors]
