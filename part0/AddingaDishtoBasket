@@ -1,0 +1,11 @@
+%% Activity Diagram: Adding a Dish to Basket
+graph TD
+    A[User logs in] -->|Is authentication successful?| B{Authentication successful?}
+    B -- Yes --> C[View menu]
+    C --> D[Select dish to add to cart]
+    D --> E[Send request to API to add dish]
+    E -->|Does dish exist?| F{Dish exists?}
+    F -- Yes --> G[Add dish to user basket]
+    G --> H[Return success message]
+    F -- No --> I[Show error message]
+    B -- No --> J[Show login error]
