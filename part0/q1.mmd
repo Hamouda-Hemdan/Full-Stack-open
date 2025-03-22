@@ -1,1 +1,14 @@
 
+graph TD
+    %% Monolithic Architecture
+    subgraph Monolithic Architecture
+        A[Monolith App] --> B[Module A]
+        A --> C[Module B]
+        A --> D[...]
+    end
+
+    %% Microservices Architecture
+    subgraph Microservices Architecture
+        E[Service A] --> F[Service B]
+        F --> G[Service C]
+    end
