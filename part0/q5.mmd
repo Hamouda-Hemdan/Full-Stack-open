@@ -1,0 +1,9 @@
+graph TD
+    %% Queue-Based Load Leveling
+    subgraph Queue-Based Load Leveling
+        A[Service A] -->|Message| B[Message Queue]
+        C[Service B] -->|Message| B
+        B -->|Message| D[Service C Instance 1]
+        B -->|Message| E[Service C Instance 2]
+        B -->|Message| F[Service C Instance 3]
+    end
