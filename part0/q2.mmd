@@ -1,0 +1,12 @@
+graph TD
+    %% Synchronous Communication
+    subgraph Synchronous Communication
+        A[Service A] -->|HTTP/RPC| B[Service B]
+        B -->|Response| A
+    end
+
+    %% Asynchronous Communication
+    subgraph Asynchronous Communication
+        C[Service A] -->|Message| D[Message Queue]
+        D -->|Message| E[Service B]
+    end
