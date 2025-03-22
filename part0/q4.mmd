@@ -1,0 +1,9 @@
+graph TD
+    %% Index Table for Non-Key Field Search
+    subgraph Main Data Table
+        A[Primary Key] --> B[Data]
+    end
+
+    subgraph Index Table
+        C[Secondary Key] --> D[Primary Key Reference]
+    end
