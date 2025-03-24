@@ -1,19 +1,24 @@
-%% Sequence Diagram: Adding a Dish to Basket
-sequenceDiagram
-    participant User
-    participant Client as Frontend (Client)
-    participant API as Backend (API)
-    participant DB as Database
+%% Use Case Diagram: Food Delivery / E-Commerce System
+%% Actors: User, System
+%% Use Cases: User Registration, User Login, View Menu, Add Dish to Basket, Place Order, Validate Token, Handle Errors
 
-    User->>Client: Selects a dish to add to the cart
-    Client->>API: POST /api/basket/dish/{dishId}
-    API->>DB: Check if dish exists
-    alt Dish exists
-        DB-->>API: Dish found
-        API->>DB: Update user basket
-        DB-->>API: Basket updated
-        API->>Client: Return success response
-    else Dish not found
-        DB-->>API: Dish not found
-        API->>Client: Return error response
-    end
+usecaseDiagram
+    actor User
+    actor System
+
+    User --> (User Registration)
+    User --> (User Login)
+    User --> (View Menu)
+    User --> (Add Dish to Basket)
+    User --> (Place Order)
+
+    System --> (Validate Token)
+    System --> (Handle Errors)
+
+    (User Login) --> (Validate Token) : <<include>>
+    (Add Dish to Basket) --> (Validate Token) : <<include>>
+    (Place Order) --> (Validate Token) : <<include>>
+    (User Registration) --> (Handle Errors) : <<extend>>
+    (User Login) --> (Handle Errors) : <<extend>>
+    (Add Dish to Basket) --> (Handle Errors) : <<extend>>
+    (Place Order) --> (Handle Errors) : <<extend>>
